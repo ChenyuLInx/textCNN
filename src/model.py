@@ -47,10 +47,8 @@ class EncoderCNN(nn.Module):
         x_embed = self.embed(x)
         x_embed = x_embed.transpose(1,2)
         out = self.layers[0](x_embed)
-        print(out.size())
         for i in range(len(self.layers) - 1):
             out = self.layers[i + 1](out)
-            print(out.size())
         return out, x_embed
 
 class DecoderCNN(nn.Module):

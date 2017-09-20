@@ -48,10 +48,12 @@ def construct_vocab(lines, vocab_size=50000):
     return docs, word2id, id2word
 
 
-def convert2tensor(batch, word2id):
+def convert2tensor(batch, word2id, pad_to=60):
     """Prepare minibatch."""
     lens = [len(line) for line in batch]
     max_len = lens[-1]
+    if pad_to > max_len:
+        max_len = pad_to
     input_lines = [
         [word2id[w] if w in word2id else word2id['<unk>'] for w in doc] +
         [word2id['<pad>']] * (max_len - len(doc))
